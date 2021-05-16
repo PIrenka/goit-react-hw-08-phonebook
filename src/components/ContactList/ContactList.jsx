@@ -1,7 +1,7 @@
 import styles from './stylesContactList.module.css';
 import { connect } from 'react-redux';
-// import * as actions from '../../redux/phoneBookNoToolkits/actions';
-import * as actions from '../../redux/phoneBook/actions';
+
+import { deleteContact } from '../../redux/phoneBook/phoneApiOperations';
 
 const ContactListItem = ({ id, name, phone, onDeleteContact }) => {
   return (
@@ -43,7 +43,7 @@ const mapStateToProps = ({ contacts: { items, filter } }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDeleteContact: id => dispatch(actions.deleteContact(id)),
+    onDeleteContact: id => dispatch(deleteContact(id)),
   };
 };
 

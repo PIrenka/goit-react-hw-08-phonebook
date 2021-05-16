@@ -1,19 +1,40 @@
+import { Component } from 'react';
+import styles from './App.module.css';
+
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 import ContactForm from '../ContactForm';
 import ContactList from '../ContactList';
 import Filter from '../Filter';
 
-import styles from './App.module.css';
+import { connect } from 'react-redux';
+import { getContacts } from '../../redux/phoneBook/phoneApiOperations';
+import { getLoading } from '../../redux/phoneBook/phoneSelector';
 
-const App = () => {
-  return (
-    <div className={styles.App}>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      <ContactList />
-    </div>
-  );
-};
+class App extends Component {
+  componentDidMount() {
+    this.props.getContacts();
+  }
+  render() {
+    return (
+      <div className={styles.App}>
+        <h1>Phonebook</h1>
+        {this.props.isLoading && <LinearProgress />}
+        <ContactForm />
+        <h2>Contacts</h2>
+        <Filter />
+        <ContactList />
+      </div>
+    );
+  }
+}
 
-export default App;
+const mapStateToProps = state => ({
+  isLoading: getLoading(state),
+});
+
+const mapDispatchToProps = dispatch => ({
+  getContacts: () => dispatch(getContacts()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

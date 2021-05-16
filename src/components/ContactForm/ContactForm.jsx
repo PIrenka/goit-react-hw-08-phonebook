@@ -2,9 +2,9 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 
-// import * as actions from '../../redux/phoneBookNoToolkits/actions';
-import * as actions from '../../redux/phoneBook/actions';
 import Label from '../Label';
+
+import { addContact } from '../../redux/phoneBook/phoneApiOperations';
 
 import styles from './stylesContactForm.module.css';
 
@@ -86,7 +86,7 @@ const mapStateToProps = ({ contacts: { items } }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: ({ name, phone }) => dispatch(actions.addContact({ name, phone })),
+  onSubmit: ({ name, phone }) => dispatch(addContact({ name, phone })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
