@@ -1,21 +1,5 @@
-// import { createStore, combineReducers } from 'redux';
-// import { composeWithDevTools } from 'redux-devtools-extension';
-// import reducer from './phoneBook/reducer';
-
-// const rootReducer = combineReducers({
-//   contacts: reducer,
-// });
-
-// const store = createStore(rootReducer, composeWithDevTools());
-
-// export default store;
-
-//=============================================
-//=============================================
-//=============================================
-
 import {
-  persistStore,
+  // persistStore,
   // persistReducer,
   FLUSH,
   REHYDRATE,
@@ -34,12 +18,19 @@ import phoneBookReducer from './phoneBook/reducer';
 //   storage,
 //   blacklist: ['filter'],
 // };
+
+const myMiddleware = store => next => action => {
+  console.log('my midleware... and show action-->', action);
+  next(action);
+};
+
 const middleware = [
   ...getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
+  myMiddleware,
   logger,
 ];
 
@@ -52,6 +43,7 @@ const store = configureStore({
   devTools: process.env.NODE_ENV === 'development',
 });
 
-const persistor = persistStore(store);
+// const persistor = persistStore(store);
 
-export default { store, persistor };
+// export default { store, persistor };
+export default store;
