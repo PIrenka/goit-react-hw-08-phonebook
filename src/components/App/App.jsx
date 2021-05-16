@@ -18,8 +18,8 @@ class App extends Component {
   render() {
     return (
       <div className={styles.App}>
-        <h1>Phonebook</h1>
         {this.props.isLoading && <LinearProgress />}
+        <h1>Phonebook</h1>
         <ContactForm />
         <h2>Contacts</h2>
         <Filter />
