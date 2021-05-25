@@ -1,0 +1,38 @@
+h2 {
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #2a363b;
+}
+.link {
+  display: inline-block;
+  padding-right: 20px;
+  font-size: 20px;
+  color: #04445f;
+}
+.activeLink {
+  color: rgb(19, 220, 255);
+}
+
+.nav {
+  display: flex;
+}
+
+.title {
+  color: rgb(175, 236, 252);
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  max-width: 1200px;
+  height: 600px;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: rgba(155, 214, 253, 0.4);
+  background-image: url(../../image/2.jpg);
+}

@@ -11,16 +11,14 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-
-import phoneBookReducer from './phoneBook/reducer';
-import authReducer from './auth/authReducer';
+import contactsReducer from './Phone/phone-reducer';
+import authReducer from './auth/auth_reducer';
 
 const authConfig = {
   key: 'auth',
   storage,
   whitelist: ['token'],
 };
-
 const middleware = [
   ...getDefaultMiddleware({
     serializableCheck: {
@@ -33,7 +31,7 @@ const middleware = [
 const store = configureStore({
   reducer: {
     auth: persistReducer(authConfig, authReducer),
-    contacts: phoneBookReducer,
+    contacts: contactsReducer,
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',

@@ -1,0 +1,46 @@
+
+.NavLink {
+    font-size: 20px;
+    color: currentColor;
+  }
+  
+  .NavLinkActive {
+    color: darkgreen;
+  }
+  .list {
+    display: flex;
+    list-style: none;
+  }
+  .item {
+    margin-right: 20px;
+  }
+  .container {
+    width: 1200px;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .name {
+    font-weight: 700;
+    margin-right: 12px ;
+  }
+  .btn {
+    min-width: 60px;
+    border-radius: 4px;
+    margin-bottom: 3px;
+    margin-left: 10px;
+    padding: 5px 5px;
+    background-color: whitesmoke;
+    color: black;
+    font-weight: 500;
+    border: 0.5px solid grey;
+    outline: none;
+    cursor: pointer;
+  }
+  .btn:hover,
+.btn:focus {
+  background-color: #2196f3;
+}
