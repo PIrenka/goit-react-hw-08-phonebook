@@ -1,5 +1,5 @@
-import axios from "axios";
-import { PersistGate } from "redux-persist/integration/react";
+import axios from 'axios';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import {
   registerRequest,
@@ -14,21 +14,22 @@ import {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
-} from "./auth_actions";
-axios.defaults.baseURL = "https://connections-api.herokuapp.com/";
+} from './auth_actions';
+
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
 const token = {
   set(token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
   unset() {
-    axios.defaults.headers.common.Authorization = "";
+    axios.defaults.headers.common.Authorization = '';
   },
 };
-export const register = ({ name, email, password }) => async (dispatch) => {
+export const register = ({ name, email, password }) => async dispatch => {
   dispatch(registerRequest());
   try {
-    const response = await axios.post("/users/signup", {
+    const response = await axios.post('/users/signup', {
       name,
       email,
       password,
@@ -39,10 +40,10 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     dispatch(registerError(err.message));
   }
 };
-export const login = ({ name, email, password }) => async (dispatch) => {
+export const login = ({ name, email, password }) => async dispatch => {
   dispatch(loginRequest());
   try {
-    const response = await axios.post("/users/login", {
+    const response = await axios.post('/users/login', {
       name,
       email,
       password,
@@ -54,10 +55,10 @@ export const login = ({ name, email, password }) => async (dispatch) => {
   }
 };
 
-export const logOut = () => async (dispatch) => {
+export const logOut = () => async dispatch => {
   dispatch(logoutRequest());
   try {
-    await axios.post("/users/logout");
+    await axios.post('/users/logout');
     token.unset();
     dispatch(logoutSuccess());
   } catch (error) {
