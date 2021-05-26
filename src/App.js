@@ -1,12 +1,9 @@
-import { Component, Suspense, lazy } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import './App.css';
-// import styles from "./Routes/Route.module.css";
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Section from './Components/Section';
-// import HomePage from "./Components/AppBar/HomePage";
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from './Redux/auth/operation_auth';
-import { getLoading } from './Redux/Phone/phone_selector';
 import { Switch } from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
@@ -25,62 +22,54 @@ const Login = lazy(() =>
 const Register = lazy(() =>
   import('./Components/Register/Register' /* webpackChunkName: "Register" */),
 );
-class App extends Component {
-  componentDidMount() {
-    this.props.onGetCurrentUser();
-  }
-  render() {
-    return (
-      <div>
-        <Section>
-          {this.props.isLoading && <LinearProgress color="secondary" />}
-          <AppBar />
+const App = () => {
+  const dispatch = useDispatch();
 
-          <Suspense
-            fallback={
-              <p>
-                <LinearProgress color="secondary" />
-              </p>
-            }
-          >
-            <Switch>
-              <PublicRoute
-                path="/homePage"
-                restricted
-                redirectTo="/Login"
-                component={HomePage}
-              />
-              <PublicRoute
-                path="/register"
-                restricted
-                redirectTo="/contacts"
-                component={Register}
-              />
-              <PublicRoute
-                path="/login"
-                restricted
-                redirectTo="/contacts"
-                component={Login}
-              />
-              <PrivateRoute
-                path="/contacts"
-                redirectTo="/login"
-                component={Contacts}
-              />
-            </Switch>
-          </Suspense>
-        </Section>
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
-const mapStateToProps = state => ({
-  isLoading: getLoading(state),
-});
+  return (
+    <div>
+      <Section>
+        <AppBar />
 
-const mapDispatchToProps = dispatch => ({
-  onGetCurrentUser: () => dispatch(getUser()),
-});
+        <Suspense
+          fallback={
+            <p>
+              <LinearProgress color="secondary" />
+            </p>
+          }
+        >
+          <Switch>
+            <PublicRoute
+              path="/homePage"
+              restricted
+              redirectTo="/Login"
+              component={HomePage}
+            />
+            <PublicRoute
+              path="/register"
+              restricted
+              redirectTo="/contacts"
+              component={Register}
+            />
+            <PublicRoute
+              path="/login"
+              restricted
+              redirectTo="/contacts"
+              component={Login}
+            />
+            <PrivateRoute
+              path="/contacts"
+              redirectTo="/login"
+              component={Contacts}
+            />
+          </Switch>
+        </Suspense>
+      </Section>
+    </div>
+  );
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

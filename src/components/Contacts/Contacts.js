@@ -1,33 +1,32 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getContact } from '../../Redux/Phone/operationApi';
-import { getLoading } from '../../Redux/Phone/phone_selector';
-import FormPhonebook from '../PhoneBook';
-import ContactItem from '../ContactItem';
-import Filter from '../Filter';
-import Section from '../Section';
+import PropTypes from 'prop-types';
 
-class Contacts extends Component {
-  componentDidMount() {
-    this.props.getContacts();
-  }
-  render() {
-    return (
-      <div>
-        <FormPhonebook />
-        <Filter />
-        <Section title="Contacts list">
-          <ContactItem />{' '}
-        </Section>
-      </div>
-    );
-  }
-}
+import styles from '../Filter/Filter.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../Redux/Phone/phone-actions';
+import { getFilter } from '../../Redux/Phone/phone_selector';
 
-const mapStateToProps = state => ({
-  isLoading: getLoading(state),
-});
-const mapDispatchToProps = dispatch => ({
-  getContacts: () => dispatch(getContact()),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
+const Filter = () => {
+  const dispatch = useDispatch();
+  const onChange = e => dispatch(actions.filterChange(e.currentTarget.value));
+  const value = useSelector(state => getFilter(state));
+
+  return (
+    <div className={styles.container}>
+      <label className={styles.label}>
+        Find contact by name
+        <input
+          className={styles.input}
+          type="text"
+          value={value}
+          onChange={onChange}
+        />
+      </label>
+    </div>
+  );
+};
+Filter.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+export default Filter;
