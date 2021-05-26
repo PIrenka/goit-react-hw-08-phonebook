@@ -1,32 +1,25 @@
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getContact } from '../../Redux/Phone/operationApi';
 
-import styles from '../Filter/Filter.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import * as actions from '../../Redux/Phone/phone-actions';
-import { getFilter } from '../../Redux/Phone/phone_selector';
+import FormPhonebook from '../PhoneBook';
+import ContactItem from '../ContactItem';
+import Filter from '../Filter';
+import Section from '../Section';
 
-const Filter = () => {
+const Contacts = () => {
   const dispatch = useDispatch();
-  const onChange = e => dispatch(actions.filterChange(e.currentTarget.value));
-  const value = useSelector(state => getFilter(state));
+  useEffect(() => dispatch(getContact(), [dispatch]));
 
   return (
-    <div className={styles.container}>
-      <label className={styles.label}>
-        Find contact by name
-        <input
-          className={styles.input}
-          type="text"
-          value={value}
-          onChange={onChange}
-        />
-      </label>
+    <div>
+      <FormPhonebook />
+      <Filter />
+      <Section title="Contacts list">
+        <ContactItem />
+      </Section>
     </div>
   );
 };
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
 
-export default Filter;
+export default Contacts;

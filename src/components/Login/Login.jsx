@@ -5,8 +5,10 @@ import { login } from '../../Redux/auth/operation_auth';
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('q@q.q');
-  const [password, setPassword] = useState('1234q');
+  // const [email, setEmail] = useState('q@gmail.com');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // const [password, setPassword] = useState('12345qq');
 
   const handleChangeEmail = e => setEmail(e.target.value);
   const handleChangePassword = e => setPassword(e.target.value);

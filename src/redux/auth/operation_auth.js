@@ -26,6 +26,9 @@ const token = {
     axios.defaults.headers.common.Authorization = '';
   },
 };
+
+console.log('token: ', token);
+
 export const register = ({ name, email, password }) => async dispatch => {
   dispatch(registerRequest());
   try {
@@ -79,7 +82,6 @@ export const getUser = () => async (dispatch, getState) => {
 
   try {
     const response = await axios.get('/users/current');
-
     dispatch(getCurrentUserSuccess(response.data));
   } catch (error) {
     dispatch(getCurrentUserError(error.message));

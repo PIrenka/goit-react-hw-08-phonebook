@@ -58,7 +58,7 @@ const Register = () => {
           <span className={styles.span}>Password</span>
           <input
             className={styles.input}
-            type="password"
+            // type="password"
             name="password"
             value={password}
             onChange={handleChange}
